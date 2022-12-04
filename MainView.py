@@ -4,6 +4,8 @@ import customtkinter
 
 import startUp
 import town
+import os
+from PIL import Image
 
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
@@ -105,6 +107,33 @@ class App(customtkinter.CTk):
         dis_add = customtkinter.CTkButton(self.districts_mod_frame, command=self.add_district, text= "Add", font=("Arial", 15),width=50)
         dis_add.grid(row=0, column=3, padx=(10, 0), pady=(10, 10), sticky="nsew")
 
+        self.other_options_frame = customtkinter.CTkFrame(self.options_frame, width=500, corner_radius=0)
+        self.other_options_frame.pack(side = tkinter.TOP, fill = tkinter.Y)
+
+        self.river = customtkinter.CTkCheckBox(self.other_options_frame,text="River")
+        self.river.grid(row=0, column=0, pady=10, padx=20, sticky="n")
+
+        self.seed = tkinter.StringVar(value=None)
+        self.custom_seed = customtkinter.CTkEntry(self.other_options_frame, textvariable=self.seed)
+        self.custom_seed.grid(row=1, column=1, pady=10, padx=20, sticky="n")
+        self.seed_label = customtkinter.CTkLabel(self.other_options_frame, text="Seed:", anchor="w")
+        self.seed_label.grid(row=1, column=0, padx=20, pady=(10, 0))
+
+        gen_btn = customtkinter.CTkButton(self.other_options_frame, command=self.generate_map, text= "Generate Map", font=("Arial", 15),width=150)
+        gen_btn.grid(row=5, column=0, padx=20, pady=(10, 10))
+
+
+    def generate_map(self):
+        print(self.river.get())
+        self.town.generate_map(self.seed.get(),river=self.river.get())
+        image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "")
+        self.map_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "map.png")), size=(1000, 1000))
+        try:
+            self.image_frame.destroy()
+        except:
+            pass
+        self.image_frame = customtkinter.CTkLabel(self.display_frame,image=self.map_image,text="")
+        self.image_frame.pack()
 
     def district_help(self):
         pass
