@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Map Generator</title>
+        <link rel="stylesheet" href="Map_Generator_CSS.css">
+    </head>
+    <body>
+        <div class="map_form">
+            <div class="centered">
+              <h2>Map Generator</h2>
+              <form action="#" id="generation_data">
+                <hr class="solid">
+                <h3>Town Size</h3>
+                <div class="radio_button">
+                    <input type="radio" id="50x50" name="town_size" value="50" checked>
+                    <label for="50x50">50x50</label>
+                    <input type="radio" id="100x100" name="town_size" value="100">
+                    <label for="100x100">100x100</label>
+                    <input type="radio" id="200x200" name="town_size" value="200">
+                    <label for="200x200">200x200</label>
+                    <input type="radio" id="500x500" name="town_size" value="500">
+                    <label for="500x500">500x500</label>
+                </div>
+                <hr class="solid">
+
+                <h3>Terrain Parameter</h3>
+                <h4>Number of peaks per 100 polygons</h4>
+                <div class="radio_button">
+                    <input type="radio" id="1" name="peaks" value="1" checked>
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="peaks" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="5" name="peaks" value="5">
+                    <label for="5">5</label>
+                    <input type="radio" id="10" name="peaks" value="10">
+                    <label for="10">10</label>
+                </div>
+                <h4>Heights</h4>
+                <label for="max_height">Max Terrain Height</label>
+                <input type="text" name="max_height" id="max_height" value="50" size="2">
+                <label for="min_height">Min Terrain Height</label>
+                <input type="text" name="min_height" id="min_height" value="-10" size="2">
+                <label for="min_peak_height">Min Peak Height</label>
+                <input type="text" name="min_peak_height" id="min_peak_height" value="30" size="2">
+
+
+                <hr class="solid">
+                <h3>Town Settings</h3>
+                <h4>Amount of walls</h4>
+                <div class="radio_button">
+                    <input type="radio" id="0w" name="walls" value="0" checked>
+                    <label for="0w">0</label>
+                    <input type="radio" id="1w" name="walls" value="1">
+                    <label for="1w">1</label>
+                    <input type="radio" id="2w" name="walls" value="2">
+                    <label for="2w">2</label>
+                    <input type="radio" id="3w" name="walls" value="3">
+                    <label for="3w">3</label>
+                </div>
+
+                <hr class="solid">
+                <h3>Districts</h3>
+
+                <hr class="solid">
+                <h3>Seed</h3>
+                <label for="seed">Seed</label>
+                <input type="text" name="seed" id="seed" value="" size="5">
+                <hr class="solid">
+
+
+                <button onclick="generate_map()">Generate Map</button> 
+              </form>
+            </div>
+          </div>
+          
+          <div class="map_view">
+            <div class="map_img">
+                <img style="width: 40%; height: 40%;" src="out_map.png" alt="map">
+            </div>
+          </div> 
+        <script>
+            function generate_map(ev){
+                $.ajax({
+                    url: "poly_map.py"
+                })
+            }
+            
+        </script>
+    </body>
